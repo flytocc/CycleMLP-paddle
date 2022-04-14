@@ -366,7 +366,7 @@ class CycleNet(nn.Layer):
             return outs
 
         B, H, W, C = x.shape
-        x = x.reshape([B, -1, C])
+        x = x.reshape([B, H * W, C])
         return x
 
     def forward(self, x):

@@ -18,6 +18,7 @@ from collections import defaultdict, deque
 import paddle
 import paddle.amp as amp
 import paddle.distributed as dist
+from paddle.fluid.dygraph.parallel import ParallelEnv
 
 import wandb
 
@@ -70,6 +71,8 @@ class SmoothedValue(object):
         """
         Warning: does not synchronize the deque!
         """
+        if not is_dist_avail_and_initialized():
+            return
         t = paddle.to_tensor([self.count, self.total], dtype=paddle.float64)
         dist.barrier()
         dist.all_reduce(t)
@@ -253,11 +256,19 @@ def all_reduce_mean(x):
         return x
 
 
+def is_dist_avail_and_initialized():
+    return ParallelEnv().world_size > 1
+
+
 def get_world_size():
+    if not is_dist_avail_and_initialized():
+        return 1
     return dist.get_world_size()
 
 
 def get_rank():
+    if not is_dist_avail_and_initialized():
+        return 0
     return dist.get_rank()
 
 

@@ -9,20 +9,71 @@
 # --------------------------------------------------------
 
 import os
+from PIL import Image
 
 from util.data import create_transform
 from util.data.constants import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
 
+from paddle.io import Dataset
 import paddle.vision.transforms as transforms
 import paddle.vision.datasets as datasets
+
+
+class ImageNetDataset(Dataset):
+    def __init__(
+            self,
+            image_root,
+            cls_label_path,
+            transform=None):
+        self._img_root = image_root
+        self._cls_path = cls_label_path
+        self.transform = transform
+        self._load_anno()
+
+    def _load_anno(self):
+        assert os.path.exists(self._cls_path)
+        assert os.path.exists(self._img_root)
+        images = []
+        labels = []
+
+        with open(self._cls_path) as fd:
+            lines = fd.readlines()
+            for l in lines:
+                l = l.strip().split(" ")
+                images.append(os.path.join(self._img_root, l[0]))
+                labels.append(int(l[1]))
+                assert os.path.exists(images[-1]), images[-1]
+
+        self.samples = list(zip(images, labels))
+
+    def __getitem__(self, index):
+        """
+        Args:
+            index (int): Index
+
+        Returns:
+            tuple: (sample, target) where target is class_index of the target class.
+        """
+        path, target = self.samples[index]
+        sample = Image.open(path).convert('RGB')
+        if self.transform is not None:
+            sample = self.transform(sample)
+
+        return sample, target
+
+    def __len__(self):
+        return len(self.samples)
 
 
 def build_dataset(is_train, args):
     transform = build_transform(is_train, args)
 
-    root = os.path.join(args.data_path, 
-        'train' if is_train and not (hasattr(args, 'debug') and args.debug) else 'val')
-    dataset = datasets.DatasetFolder(root, transform=transform)
+    if hasattr(args, 'cls_label_path') and args.cls_label_path:
+        dataset = ImageNetDataset(args.data_path, args.cls_label_path, transform=transform)
+    else:
+        root = os.path.join(args.data_path,
+            'train' if is_train and not (hasattr(args, 'debug') and args.debug) else 'val')
+        dataset = datasets.DatasetFolder(root, transform=transform)
 
     print(dataset)
 
