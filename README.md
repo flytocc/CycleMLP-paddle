@@ -21,11 +21,11 @@
 
 这是一个PaddlePaddle实现的CycleMLP。
 
-<!-- <p align="middle">
+<p align="middle">
   <img src="https://github.com/ShoufaChen/CycleMLP/blob/main/figures/teaser.png?raw=true" height="300" />
   &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="https://github.com/ShoufaChen/CycleMLP/blob/main/figures/flops.png?raw=true" height="300" />
-</p> -->
+</p>
 
 **论文:** [CycleMLP: A MLP-like Architecture for Dense Prediction](https://arxiv.org/abs/2107.10224)
 
