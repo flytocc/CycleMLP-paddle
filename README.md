@@ -58,7 +58,7 @@
 
 | 模型      | top1 acc (参考精度) | top1 acc (复现精度) | 权重 \| 训练日志 |
 |:---------:|:------:|:----------:|:----------:|
-| CycleMLP-B1 | 0.789 | 0.780 | checkpoint-best.pd \| train.log |
+| CycleMLP-B1 | 0.789 | 0.790 | checkpoint-best.pd \| train.log |
 
 权重及训练日志下载地址：[百度网盘](https://pan.baidu.com/s/1D75OdwxWOxf9RWnzvD2ixg?pwd=oduk)
 
