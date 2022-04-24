@@ -31,6 +31,10 @@
 
 **参考repo:** [CycleMLP](https://github.com/ShoufaChen/CycleMLP)
 
+项目aistudio地址：
+
+notebook任务：https://aistudio.baidu.com/aistudio/projectdetail/3877397
+
 在此非常感谢`ShoufaChen`贡献的[CycleMLP](https://github.com/ShoufaChen/CycleMLP)，提高了本repo复现论文的效率。
 
 
