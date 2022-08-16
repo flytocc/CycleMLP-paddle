@@ -228,9 +228,22 @@ Run successfully with command - python3.7 inference.py --use_gpu=True --use_tens
 
 ## 7. License
 
-CycleMLP is released under MIT License.
+This project is released under MIT License.
 
 
 ## 8. 参考链接与文献
 1. CycleMLP: A MLP-like Architecture for Dense Prediction: https://arxiv.org/abs/2107.10224
 2. CycleMLP: https://github.com/ShoufaChen/CycleMLP
+
+再次感谢`ShoufaChen`贡献的[CycleMLP](https://github.com/ShoufaChen/CycleMLP)，提高了本repo复现论文的效率。
+
+```
+@inproceedings{
+chen2022cyclemlp,
+title={Cycle{MLP}: A {MLP}-like Architecture for Dense Prediction},
+author={Shoufa Chen and Enze Xie and Chongjian GE and Runjian Chen and Ding Liang and Ping Luo},
+booktitle={International Conference on Learning Representations},
+year={2022},
+url={https://openreview.net/forum?id=NMEceG4v69Y}
+}
+```
